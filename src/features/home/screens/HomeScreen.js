@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    paddingBottom: 90, // Add padding for floating tab bar
   },
 });
 

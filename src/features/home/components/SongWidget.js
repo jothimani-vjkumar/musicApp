@@ -1,33 +1,44 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import FastImage from 'react-native-fast-image';
 import { colors } from '../../../core/theme/colors';
 import Icon from 'react-native-vector-icons/Feather';
+import { secondsToMinutes } from '../../../shared/utils';
+import { fontSizes } from '../../../core/theme/fonts';
+import { Platform } from 'react-native';
 
-const SongWidget = () => {
+const SongWidget = ({ song, onSongPress, onDownloadPress }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onSongPress}>
       <View style={styles.songContainer}>
         <FastImage
           source={{
-            uri: 'https://picsum.photos/150/150?random=1',
+            uri: song?.image,
             priority: FastImage.priority.normal,
           }}
           style={styles.albumCover}
           resizeMode={FastImage.resizeMode.cover}
         />
         <View style={styles.songInfo}>
-          <Text style={styles.songTitle}>Song 1</Text>
-          <Text style={styles.artistName}>Artist 1</Text>
-          <Text style={styles.artistName}>Artist 1</Text>
+          <Text ellipsizeMode="tail" style={styles.songTitle} numberOfLines={1}>
+            {song?.name || ''}
+          </Text>
+          <Text style={styles.artistName} numberOfLines={1}>
+            {song?.artist_name || ''}
+          </Text>
+          <Text style={styles.artistName}>
+            {secondsToMinutes(song?.duration || 0)}
+          </Text>
         </View>
       </View>
-      <View style={styles.playButton}>
-        <TouchableOpacity style={styles.iconButton}>
-          <Icon name="download" size={25} color={colors.black} />
-        </TouchableOpacity>
-      </View>
-    </View>
+      {Platform.OS === 'android' && (
+        <View style={styles.downloadButton}>
+          <TouchableOpacity style={styles.iconButton} onPress={onDownloadPress}>
+            <Icon name="download" size={25} color={colors.black} />
+          </TouchableOpacity>
+        </View>
+      )}
+    </TouchableOpacity>
   );
 };
 
@@ -44,10 +55,10 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     borderRadius: 12,
     elevation: 2,
-    shadowColor: colors.shadow,
+    shadowColor: colors.black,
     shadowOffset: {
-      width: 0,
-      height: 1,
+      width: 1,
+      height: 2,
     },
     shadowOpacity: 0.05,
     shadowRadius: 2,
@@ -55,6 +66,7 @@ const styles = StyleSheet.create({
   songContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    width: '85%',
   },
   albumCover: {
     width: 65,
@@ -63,23 +75,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
   },
   songTitle: {
-    fontSize: 16,
+    fontSize: fontSizes.medium,
     fontWeight: '600',
     color: colors.text,
-    marginBottom: 4,
+    marginBottom: 2,
   },
   artistName: {
-    fontSize: 14,
+    fontSize: fontSizes.medium,
     color: colors.textSecondary,
   },
-  playButton: {
+  downloadButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    width: '15%',
     height: '100%',
   },
   songInfo: {
-    marginHorizontal: 5,
+    flex: 1,
+    marginLeft: 8,
   },
   iconButton: {
     padding: 5,
