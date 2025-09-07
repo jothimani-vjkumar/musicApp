@@ -1,102 +1,242 @@
-<<<<<<< HEAD
-# musicApp
-For interview task
-=======
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🎵 MusicApp
 
-# Getting Started
+A modern React Native music streaming application with download functionality, elegant UI, and cross-platform support.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 📱 Features
 
-## Step 1: Start Metro
+- **🎵 Music Streaming**: Browse and play music tracks
+- **⬇️ Download System**: Download songs for offline listening
+- **🎨 Modern UI**: Clean and intuitive interface
+- **📱 Cross-Platform**: Runs on both iOS and Android
+- **♾️ Infinite Scrolling**: Seamless browsing experience
+- **🎯 Navigation**: Stack and Tab navigation with smooth transitions
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🛠️ Tech Stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **Framework**: React Native 0.81.1
+- **Navigation**: React Navigation v7
+- **State Management**: React Hooks & Context
+- **Image Loading**: React Native Fast Image
+- **File System**: React Native FS
+- **Icons**: React Native Vector Icons
+- **HTTP Client**: Axios
+- **Environment Config**: React Native Config
 
-```sh
-# Using npm
-npm start
+## 📋 Prerequisites
 
-# OR using Yarn
-yarn start
+Before running this project, make sure you have the following installed:
+
+### General Requirements
+
+- **Node.js**: >= 20.19.4
+- **npm**: >= 10.8.2
+- **React Native CLI**: `npm install -g @react-native-community/cli`
+
+### iOS Requirements
+
+- **macOS**: Required for iOS development
+- **Xcode**: >= 15.0
+- **iOS Simulator**: iOS 17.5+ or physical device
+- **CocoaPods**: `sudo gem install cocoapods`
+
+### Android Requirements
+
+- **Android Studio**: Latest version
+- **Android SDK**: API Level 34+
+- **Java Development Kit**: JDK 17+
+- **Android Emulator**: API 34+ or physical device
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd MusicApp
 ```
 
-## Step 2: Build and run your app
+### 2. Install Dependencies
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+```bash
+# Install Node.js dependencies
+npm install
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+# Install iOS dependencies (macOS only)
+cd ios && pod install && cd ..
 ```
 
-### iOS
+### 3. Environment Setup
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+Create a `.env` file in the root directory:
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```env
+API_URL=https://api.freemusicarchive.org
+CLIENT_ID=your_client_id_here
 ```
 
-Then, and every time you update your native dependencies, run:
+### 4. Run the Application
 
-```sh
-bundle exec pod install
+#### For Android
+
+```bash
+# Start Metro bundler
+npx react-native start
+
+# In a new terminal, run Android
+npx react-native run-android
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+#### For iOS (macOS only)
 
-```sh
-# Using npm
-npm run ios
+```bash
+# Start Metro bundler
+npx react-native start
 
-# OR using Yarn
-yarn ios
+# In a new terminal, run iOS
+npx react-native run-ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 📁 Project Structure
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```
+MusicApp/
+├── 📱 android/                    # Android-specific files
+│   ├── app/
+│   │   ├── build.gradle           # Android build configuration
+│   │   └── src/main/
+│   │       ├── AndroidManifest.xml
+│   │       └── java/com/musicapp/
+├── 🍎 ios/                        # iOS-specific files
+│   ├── MusicApp/
+│   │   ├── Info.plist             # iOS app configuration
+│   │   ├── AppDelegate.swift      # iOS app delegate
+│   │   └── LaunchScreen.storyboard
+│   ├── MusicApp.xcodeproj/        # Xcode project
+│   └── Podfile                    # CocoaPods dependencies
+├── 📦 node_modules/               # Node.js dependencies
+├── 🎯 src/                        # Source code
+│   ├── 🏗️ core/                   # Core application logic
+│   │   ├── navigation/            # Navigation configuration
+│   │   │   ├── AppNavigator.js    # Main app navigator
+│   │   │   ├── MainNavigator.js   # Stack navigator
+│   │   │   └── TabNavigator.js    # Bottom tab navigator
+│   │   ├── services/              # API and external services
+│   │   │   ├── apiService.js      # HTTP client with Axios
+│   │   │   └── index.js           # Service exports
+│   │   ├── theme/                 # Design system
+│   │   │   ├── colors.js          # Color palette
+│   │   │   └── fonts.js           # Typography system
+│   │   └── localization/          # Internationalization
+│   │       └── strings.js         # App strings
+│   ├── 🎵 features/               # Feature-based modules
+│   │   ├── home/                  # Home feature
+│   │   │   ├── components/        # Home-specific components
+│   │   │   │   ├── SongList.js    # Music list with infinite scroll
+│   │   │   │   ├── SongWidget.js  # Individual song item
+│   │   │   │   ├── Header.js      # Home header
+│   │   │   │   ├── Search.js      # Search component
+│   │   │   │   ├── DownloadButton.js # Download functionality
+│   │   │   │   ├── SongDetailContainer.js
+│   │   │   │   └── Playback.js    # Playback controls
+│   │   │   ├── hooks/             # Home-specific hooks
+│   │   │   │   └── fetchSongs.js  # Data fetching logic
+│   │   │   ├── screens/           # Home screens
+│   │   │   │   └── SongDetailsScreen.js
+│   │   │   └── index.js           # Feature exports
+│   │   ├── search/                # Search feature
+│   │   │   └── screens/
+│   │   │       └── SearchScreen.js
+│   │   ├── library/               # Library feature
+│   │   │   └── screens/
+│   │   │       └── LibraryScreen.js
+│   │   └── profile/               # Profile feature
+│   │       └── screens/
+│   │           └── ProfileScreen.js
+│   ├── 🔧 shared/                 # Shared utilities and components
+│   │   ├── constants/             # App constants
+│   │   │   └── screens.js         # Screen name constants
+│   │   └── utils/                 # Utility functions
+│   │       ├── index.js           # Common utilities
+│   │       └── downloadHelper.js  # Download functionality
+│   └── 📱 screens/                # Legacy screens (being migrated)
+│       └── SplashScreen.tsx
+├── 📄 Configuration Files
+│   ├── package.json               # Dependencies and scripts
+│   ├── app.json                   # React Native app config
+│   ├── babel.config.js            # Babel configuration
+│   ├── metro.config.js            # Metro bundler config
+│   ├── react-native.config.js     # React Native CLI config
+│   ├── tsconfig.json              # TypeScript configuration
+│   └── .env                       # Environment variables
+├── 🧪 __tests__/                  # Test files
+└── 📚 Documentation
+    ├── README.md                  # This file
+    └── PROJECT_STRUCTURE.md       # Detailed structure docs
+```
 
-## Step 3: Modify your app
+## 🎯 Key Components
 
-Now that you have successfully run the app, let's make changes!
+### Navigation Structure
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+```
+AppNavigator (NavigationContainer)
+└── MainNavigator (Stack Navigator)
+    ├── TabNavigator (Initial Screen)
+    │   ├── Home Tab
+    │   ├── Search Tab
+    │   ├── Library Tab
+    │   └── Profile Tab
+    └── SongDetails Screen
+```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### Core Services
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+- **API Service**: Centralized HTTP client with Axios
+- **Download Service**: File download and management
+- **Theme System**: Consistent colors and typography
 
-## Congratulations! :tada:
+### Feature Architecture
 
-You've successfully run and modified your React Native App. :partying_face:
+Each feature follows a consistent structure:
 
-### Now what?
+- `components/`: Feature-specific UI components
+- `screens/`: Screen components
+- `hooks/`: Custom React hooks
+- `services/`: Feature-specific business logic
+- `types/`: TypeScript type definitions (if applicable)
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## 🛠️ Troubleshooting
 
-# Troubleshooting
+### Common Issues
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+#### Metro Bundler Issues
 
-# Learn More
+```bash
+# Clear Metro cache
+npx react-native start --reset-cache
+```
 
-To learn more about React Native, take a look at the following resources:
+#### Android Build Issues
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
->>>>>>> 3baeb1c (Initial commit)
+```bash
+# Clean Android build
+cd android && ./gradlew clean && cd ..
+```
+
+#### iOS Build Issues
+
+```bash
+# Clean iOS build
+cd ios && xcodebuild clean -workspace MusicApp.xcworkspace -scheme MusicApp && cd ..
+```
+
+#### Permission Issues (Android)
+
+- Ensure all permissions are declared in `android/app/src/main/AndroidManifest.xml`
+- Clear app data: `adb shell pm clear com.musicapp`
+
+### Environment Issues
+
+- Ensure Node.js version >= 20.19.4
+- Verify Android SDK and build tools are installed
+- Check Xcode and iOS Simulator versions
